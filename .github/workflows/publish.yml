@@ -1,0 +1,44 @@
+# 发布到 npm —— 走 Trusted Publishing（OIDC），不使用任何令牌或验证码。
+#
+# 原理：GitHub 为这次运行签发一张一次性身份凭证，npm 校验「确实是这个仓库的这个
+# workflow 在发布」后接受发布，并自动生成 provenance（来源证明）。
+#
+# 前置条件（在 npm 网站配置一次，见 README 或对话中的说明）：
+#   在包的 Trusted Publisher 设置里填：
+#     - 仓库：WoodSettler/dsh-local-proxy
+#     - workflow 文件名：publish.yml
+#
+# 注意：本文件刻意不设置 setup-node 的 registry-url —— 那会写入一个空的
+# NODE_AUTH_TOKEN 的 .npmrc，反而干扰 OIDC 认证。npm 默认就用官方 registry。
+
+name: Publish to npm
+
+on:
+  # 在 GitHub 网页上手动点按钮触发（首次发布用这个，最可控）
+  workflow_dispatch:
+  # 发布 Release 时自动触发
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write # Trusted Publishing（OIDC）必需，不能省
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Node 24 自带 npm 11.x，满足 Trusted Publishing 的 CLI 版本要求
+          node-version: 24
+
+      - name: Show tool versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Publish
+        run: npm publish --provenance --access public
