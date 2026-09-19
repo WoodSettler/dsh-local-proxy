@@ -1,0 +1,11 @@
+# dsh-local-proxy bundle patch: mount the host plugin under its package name,
+# resolved through the profile's node_modules.
+#
+# This is what makes `dsh plugin --profile <name> add <spec>` a one-step install:
+# after pnpm installs the package, the CLI reconciles `dsh.profile.bundles`
+# against installed dependencies and appends every dependency that declares
+# `dsh.bundle` — this file is that declaration's target.
+
+- insert:
+    - id: dsh-local-proxy
+      name: dsh-local-proxy

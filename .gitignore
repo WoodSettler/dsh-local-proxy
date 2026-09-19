@@ -1,0 +1,11 @@
+# Dependencies (this plugin has none, but keep the tree clean if that changes)
+node_modules/
+
+# Runtime logs this plugin may write next to itself
+*.log
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
