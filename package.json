@@ -21,6 +21,14 @@
       "patch": "./cordis.patch.yml"
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WoodSettler/dsh-local-proxy.git"
+  },
+  "homepage": "https://github.com/WoodSettler/dsh-local-proxy#readme",
+  "bugs": {
+    "url": "https://github.com/WoodSettler/dsh-local-proxy/issues"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
