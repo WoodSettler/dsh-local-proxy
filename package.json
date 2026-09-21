@@ -1,6 +1,6 @@
 {
   "name": "dsh-local-proxy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DSH plugin: discover this machine's HTTP proxy (proxy env vars, else the Windows system proxy) and make DSH use it — for the agent's in-process fetches and for every child process it spawns.",
   "license": "MIT",
   "type": "module",
